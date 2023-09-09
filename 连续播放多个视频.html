@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="referrer" content="never">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>视频播放器</title>
+
+</head>
+<body>
+<style>
+    .video-container {
+        max-width: 600px; /* 设置最大宽度 */
+    }
+</style>
+  <div class="video-container">
+    <video id="video-player" controls height="200">
+      <source src="http://132.226.169.222:8888/down/SQhiwrbzuGlE" type="video/mp4">
+      <!-- 添加更多视频源 -->
+    </video>
+  </div>
+
+  <button id="prev-button">上一个视频</button>
+  <button id="next-button">下一个视频</button>
+
+  <script>
+    var videoPlayer = document.getElementById('video-player');
+    var videoList = [
+	'http://132.226.169.222:8888/down/SQhiwrbzuGlE', 
+	'http://video-1251586368.file.myqcloud.com/tencent/82f48e75333745f98b741a0ee32740c3/bd6711db1524472db993dd47b3e7eefa.mp4?ver=160-pro', 
+	'http://m.papala.eu.org/dy/%E6%83%8A%E5%A4%A9%E8%90%A5%E6%95%912_1080P.mp4'
+	]; // 视频列表
+    var currentVideoIndex = 0; // 当前视频索引
+
+    var prevButton = document.getElementById('prev-button');
+    var nextButton = document.getElementById('next-button');
+
+    prevButton.addEventListener('click', playPreviousVideo);
+    nextButton.addEventListener('click', playNextVideo);
+
+    videoPlayer.addEventListener('ended', playNextVideo);
+
+    function playNextVideo() {
+      currentVideoIndex++;
+      if (currentVideoIndex >= videoList.length) {
+        currentVideoIndex = 0; // 循环播放视频列表
+      }
+      videoPlayer.src = videoList[currentVideoIndex];
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+
+    function playPreviousVideo() {
+      currentVideoIndex--;
+      if (currentVideoIndex < 0) {
+        currentVideoIndex = videoList.length - 1; // 循环播放视频列表
+      }
+      videoPlayer.src = videoList[currentVideoIndex];
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+  </script>
+</body>
+</html>
